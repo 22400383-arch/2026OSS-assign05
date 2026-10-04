@@ -13,9 +13,77 @@
         <input type="date" id="startDate"><br>
         <input type="text" class="Title" value="종료날짜" readonly>
         <input type="date" id="endDate"><br>
-        <input type="text" class="forms" id="subject" placeholder="과목"><br>
-        <input type="text" class="forms" id="title" placeholder="제목"><br>
-        <textarea class="forms" id="content" placeholder="내용"></textarea><br>
+        <input type="text" class="forms" id="subject" placeholder="과목" required><br>
+        <input type="text" class="forms" id="title" placeholder="제목" required><br>
+        <textarea class="forms" id="content" placeholder="내용" required></textarea><br>
+        <button id="addbtn">추가</button>
+    </div>
+
+    <div id="view">
+        <ul id="todoList">
+            <li>
+                <p>시작날짜: 2026-10-01</p>
+                <p>종료날짜: 2026-10-06</p>
+                <p>과목: 웹프로그래밍</p>
+                <p>제목: CRUD 과제</p>
+                <p>내용: JavaScript Array를 이용하여 CRUD 구현하기</p>
+                <button class="editbtn">수정</button><button class="delbtn">삭제</button>
+            </li>
+            <li>
+                <p>시작날짜: 2026-10-02</p>
+                <p>종료날짜: 2026-10-07</p>
+                <p>과목: 기독교의 이해</p>
+                <p>제목: 레포트작성</p>
+                <p>내용: 질문에 대해서 50글자 이내로 작성해야함</p>
+                <button class="editbtn">수정</button><button class="delbtn">삭제</button>
+            </li>
+            <li>
+                <p>시작날짜: 2026-10-02</p>
+                <p>종료날짜: 2026-10-08</p>
+                <p>과목: ERC</p>
+                <p>제목: Reading Quiz</p>
+                <p>내용: GW4 2.1을 읽고 질문에 답변하기</p>
+                <button class="editbtn">수정</button><button class="delbtn">삭제</button>
+            </li>
+        </ul>
     </div>
 </body>
 </html>
+
+<script>
+    const startDate = document.querySelector("#startDate");
+    const endDate = document.querySelector("#endDate");
+    const subject = document.querySelector("#subject");
+    const title = document.querySelector("#title");
+    const content = document.querySelector("#content");
+    const addbtn = document.querySelector("#addbtn");
+    const todoList = document.querySelector("#todoList");
+
+    addbtn.addEventListener("click", function () {
+        if(startDate.value ===""){
+            alert("시작날짜를 입력하세요.");
+            startDate.focus();
+            return;
+        }
+        if(endDate.value===""){
+            alert("종료날짜를 입력하세요.");
+            endDate.focus();
+            return;
+        }
+        if(startDate.value > endDate.value){
+            alert("종료날짜는 시작날짜보다 빠를 수 없습니다.");
+            endDate.focus();
+            return;
+        }
+
+        const li = document.createElement("li");
+        li.innerHTML=
+            `<p>시작날짜: ${startDate.value}</p>
+            <p>종료날짜: ${endDate.value}</p>
+            <p>과목: ${subject.value}</p>
+            <p>제목: ${title.value}</p>
+            <p>내용: ${content.value}</p>
+            <button class="editbtn">수정</button><button class="delbtn">삭제</button>`;
+            todoList.appendChild(li);
+    });
+</script>
