@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
 
     <h1>To do List</h1>
@@ -48,6 +50,7 @@
         </ul>
     </div>
 </body>
+
 </html>
 
 <script>
@@ -57,33 +60,52 @@
     const title = document.querySelector("#title");
     const content = document.querySelector("#content");
     const addbtn = document.querySelector("#addbtn");
+    const editbtn = document.querySelectorAll(".editbtn");
+    const delbtn = document.querySelectorAll(".delbtn");
     const todoList = document.querySelector("#todoList");
 
     addbtn.addEventListener("click", function () {
-        if(startDate.value ===""){
+        if (startDate.value === "") {
             alert("시작날짜를 입력하세요.");
             startDate.focus();
             return;
         }
-        if(endDate.value===""){
+        if (endDate.value === "") {
             alert("종료날짜를 입력하세요.");
             endDate.focus();
             return;
         }
-        if(startDate.value > endDate.value){
+        if (startDate.value > endDate.value) {
             alert("종료날짜는 시작날짜보다 빠를 수 없습니다.");
             endDate.focus();
             return;
         }
 
         const li = document.createElement("li");
-        li.innerHTML=
+        li.innerHTML =
             `<p>시작날짜: ${startDate.value}</p>
             <p>종료날짜: ${endDate.value}</p>
             <p>과목: ${subject.value}</p>
             <p>제목: ${title.value}</p>
             <p>내용: ${content.value}</p>
             <button class="editbtn">수정</button><button class="delbtn">삭제</button>`;
-            todoList.appendChild(li);
+        const newDelbtn = li.querySelector(".delbtn");
+        newDelbtn.addEventListener("click", function (e) {
+            const result = confirm("삭제하시겠습니까?");
+            if (result === true) {
+                e.target.parentElement.remove();
+            }
+        });
+        todoList.appendChild(li);
     });
+
+    delbtn.forEach(function (delbtn) {
+        delbtn.addEventListener("click", function (e) {
+            const result = confirm("삭제하시겠습니까?");
+            if (result === true) {
+                e.target.parentElement.remove();
+            }
+        });
+    });
+
 </script>
