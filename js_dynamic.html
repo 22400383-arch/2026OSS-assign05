@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <input type="text" id="fruit" placeholder="과일을 입력하세요">
+    <button id="addbtn">추가</button>
+    <ul id="list">
+        <li style="display: none">none</li>
+    </ul>
+</body>
+
+</html>
+
+<script>
+    const fruit = document.querySelector("#fruit");
+    const addbtn = document.querySelector("#addbtn");
+    const list = document.querySelector("#list");
+
+    addbtn.addEventListener("click", function () {
+        const newFruit = fruit.value.split(",");
+        for (i = 0; i < newFruit.length; i++) {
+            const one = document.createElement("li");
+            one.textContent = newFruit[i];
+            list.appendChild(one);
+            const rbtn = document.createElement("button");
+            rbtn.textContent = "x";
+            rbtn.addEventListener("click", function (e) {
+                e.target.parentElement.remove();
+
+            })
+            one.appendChild(rbtn);
+        }
+    })
+</script>
