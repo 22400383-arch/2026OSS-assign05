@@ -108,4 +108,43 @@
         });
     });
 
+    editbtn.forEach(function (editbtn) {
+        editbtn.addEventListener("click", function (e) {
+            const editForm = [];
+            for (let i = 0; i < 5; i++) {
+                if (i < 2) {
+                    editForm[i] = document.createElement("input");
+                    editForm[i].type = "date";
+                } else if (i == 4) {
+                    editForm[i] = document.createElement("textarea");
+                } else {
+                    editForm[i] = document.createElement("input");
+                    editForm[i].type = "text";
+                }
+
+            }
+            editForm[0].value = e.target.parentElement.children[0].innerText.split(": ")[1];
+            editForm[1].value = e.target.parentElement.children[1].innerText.split(": ")[1];
+            editForm[2].value = e.target.parentElement.children[2].innerText.split(": ")[1];
+            editForm[3].value = e.target.parentElement.children[3].innerText.split(": ")[1];
+            editForm[4].value = e.target.parentElement.children[4].innerText.split(": ")[1];
+            
+            const saveBtn = document.createElement("button");
+            saveBtn.textContent = "저장";
+            saveBtn.addEventListener("click", function () {
+                e.target.parentElement.children[0].innerText = "시작날짜: " + editForm[0].value;
+                e.target.parentElement.children[1].innerText = "종료날짜: " + editForm[1].value;
+                e.target.parentElement.children[2].innerText = "과목: " + editForm[2].value;
+                e.target.parentElement.children[3].innerText = "제목: " + editForm[3].value;
+                e.target.parentElement.children[4].innerText = "내용: " + editForm[4].value;
+
+                for (let i = 0; i < 5; i++) {
+                    e.target.parentElement.replaceChild(editForm[i], e.target.parentElement.children[i]);
+                }
+                e.target.parentElement.replaceChild(saveBtn, e.target);
+            });
+
+        })
+    })
+
 </script>
