@@ -5,6 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+    <style>
+        body{
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        #form-area{
+            width: 600px;
+            margin: 0 auto;
+            background-color: #2cb577;
+            border-radius: 10px;
+        }
+        #startDate, #endDate{
+            width: 100px;
+        }
+        .forms{
+            width: 190px;
+        }
+        .Title{
+            width: 80px;
+        }
+        #view{
+            width: 600px;
+            margin: 0 auto;
+            background-color: #66ebaf;
+            border-radius: 10px;
+        }
+        ul{
+            list-style: none;
+            padding: 0;
+        }
+        #todoList li{
+            margin-bottom: 30px;
+        }
+        #todoList li p{
+            margin: 5px 0;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -110,6 +149,7 @@
 
     editbtn.forEach(function (editbtn) {
         editbtn.addEventListener("click", function (e) {
+            const li = e.target.parentElement;
             const editForm = [];
             for (let i = 0; i < 5; i++) {
                 if (i < 2) {
@@ -123,25 +163,39 @@
                 }
 
             }
-            editForm[0].value = e.target.parentElement.children[0].innerText.split(": ")[1];
-            editForm[1].value = e.target.parentElement.children[1].innerText.split(": ")[1];
-            editForm[2].value = e.target.parentElement.children[2].innerText.split(": ")[1];
-            editForm[3].value = e.target.parentElement.children[3].innerText.split(": ")[1];
-            editForm[4].value = e.target.parentElement.children[4].innerText.split(": ")[1];
-            
+            editForm[0].value = li.children[0].innerText.split(": ")[1];
+            editForm[1].value = li.children[1].innerText.split(": ")[1];
+            editForm[2].value = li.children[2].innerText.split(": ")[1];
+            editForm[3].value = li.children[3].innerText.split(": ")[1];
+            editForm[4].value = li.children[4].innerText.split(": ")[1];
+
+            for (let i = 0; i < 5; i++) {
+                li.replaceChild(editForm[i], li.children[0]);
+            }
+
             const saveBtn = document.createElement("button");
             saveBtn.textContent = "저장";
-            saveBtn.addEventListener("click", function () {
-                e.target.parentElement.children[0].innerText = "시작날짜: " + editForm[0].value;
-                e.target.parentElement.children[1].innerText = "종료날짜: " + editForm[1].value;
-                e.target.parentElement.children[2].innerText = "과목: " + editForm[2].value;
-                e.target.parentElement.children[3].innerText = "제목: " + editForm[3].value;
-                e.target.parentElement.children[4].innerText = "내용: " + editForm[4].value;
+            li.replaceChild(saveBtn, e.target);
 
+            saveBtn.addEventListener("click", function () {
+                const newP = [];
                 for (let i = 0; i < 5; i++) {
-                    e.target.parentElement.replaceChild(editForm[i], e.target.parentElement.children[i]);
+                    newP[i] = document.createElement("p");
                 }
-                e.target.parentElement.replaceChild(saveBtn, e.target);
+                newP[0].textContent = "시작날짜: " + editForm[0].value;
+                newP[1].textContent = "종료날짜: " + editForm[1].value;
+                newP[2].textContent = "과목: " + editForm[2].value;
+                newP[3].textContent = "제목: " + editForm[3].value;
+                newP[4].textContent = "내용: " + editForm[4].value;
+                for (let i = 0; i < 5; i++) {
+                    li.replaceChild(newP[i], editForm[i]);
+                }
+
+                const newEditBtn = document.createElement("button");
+                newEditBtn.className = "editbtn";
+                newEditBtn.textContent = "수정";
+
+                li.replaceChild(newEditBtn, saveBtn);
             });
 
         })
